@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dapper" Version="2.1.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Infrastructure.Interface\Infrastructure.Interface.csproj" />
+    <ProjectReference Include="..\..\Transversal\Transversal.Common\Transversal.Common.csproj" />
+  </ItemGroup>
+
+</Project>
