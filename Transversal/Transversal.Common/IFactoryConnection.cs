@@ -4,4 +4,6 @@ namespace Transversal.Common;
 public interface IFactoryConnection
 {
     SqliteConnection GetConnection { get; }
+    void InitializeDatabase();
+    void SeedData();
 }

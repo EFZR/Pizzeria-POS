@@ -1,6 +1,6 @@
 -- Insert into Country table
 INSERT INTO
-  `Country` (`Name`)
+  `Country` (`Country_Name`)
 VALUES
   ('Honduras'),
   ('United States'),
@@ -10,7 +10,7 @@ VALUES
 
 -- Insert into Province table
 INSERT INTO
-  `Province` (`Country_ID`, `Name`)
+  `Province` (`Provi_CountryId`, `Provi_Name`)
 VALUES
   (1, 'Francisco Morazan'),
   (1, 'Cortes'),
@@ -25,7 +25,7 @@ VALUES
 
 -- Insert into Locality table
 INSERT INTO
-  `Locality` (`Province_ID`, `Name`)
+  `Locality` (`Local_ProviId`, `Local_Name`)
 VALUES
   (1, 'Distrito Central'),
   (1, 'Ojojona'),
@@ -48,7 +48,7 @@ VALUES
 
 -- Insert into Products table (adding pizzas)
 INSERT INTO
-  `Products` (`Name`, `Description`, `Price`, `Availability`)
+  `Products` (`Prod_Name`, `Prod_Description`, `Prod_Price`, `Prod_Availability`)
 VALUES
   (
     'Pepperoni Pizza',
@@ -83,7 +83,7 @@ VALUES
 
 -- Insert into Employee table
 INSERT INTO
-  `Employee` (`Locality_ID`, `First_name`, `Last_name`, `Phone`)
+  `Employee` (`Emp_LocalId`, `Emp_FirstName`, `Emp_LastName`, `Emp_Phone`)
 VALUES
   (1, 'John', 'Doe', '123-456-7890'),
   (2, 'Jane', 'Smith', '987-654-3210'),
@@ -93,12 +93,12 @@ VALUES
 -- Insert into User table
 INSERT INTO
   `User` (
-    `Employee_ID`,
-    `Username`,
-    `Email`,
-    `Password`,
-    `Password_salt`,
-    `Token_salt`
+    `User_EmpId`,
+    `User_Username`,
+    `User_Email`,
+    `User_Password`,
+    `User_PasswordSalt`,
+    `User_TokenSalt`
   )
 VALUES
   (
@@ -137,11 +137,11 @@ VALUES
 -- Insert into Customer table
 INSERT INTO
   `Customer` (
-    `Locality_ID`,
-    `First_name`,
-    `Last_name`,
-    `Phone`,
-    `Email`
+    `Cust_LocalId`,
+    `Cust_FirstName`,
+    `Cust_LastName`,
+    `Cust_Phone`,
+    `Cust_Email`
   )
 VALUES
   (
@@ -176,11 +176,11 @@ VALUES
 -- Insert into Order table
 INSERT INTO
   `Order` (
-    `Employee_ID`,
-    `Customer_ID`,
-    `Date`,
-    `BillNumber`,
-    `Total`
+    `Ord_EmpId`,
+    `Ord_CustId`,
+    `Ord_Date`,
+    `Ord_BillNumber`,
+    `Ord_Total`
   )
 VALUES
   (1, 1, '2024-06-22', 'BILL001', 21.98),
@@ -190,7 +190,7 @@ VALUES
 
 -- Insert into OrderDetail table
 INSERT INTO
-  `OrderDetail` (`Order_ID`, `Product_ID`, `Quantity`, `Price`)
+  `OrderDetail` (`OD_OrdId`, `OD_ProdId`, `OD_Quantity`, `OD_Price`)
 VALUES
   (1, 1, 2, 21.98), -- Order ID 1, Product ID 1 (Pepperoni Pizza), Quantity 2, Price 21.98
   (2, 2, 1, 9.99), -- Order ID 2, Product ID 2 (Margherita Pizza), Quantity 1, Price 9.99

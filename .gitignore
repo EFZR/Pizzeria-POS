@@ -221,6 +221,9 @@ project.lock.json
 # UWP Projects
 AppPackages/
 
+# SQLite file
+*.db
+
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####

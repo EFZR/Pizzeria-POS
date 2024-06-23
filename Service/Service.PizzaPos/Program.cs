@@ -102,6 +102,31 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+#region Database Initializer
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        // Initialize database schema
+        var factoryConnection = services.GetRequiredService<IFactoryConnection>();
+        factoryConnection.InitializeDatabase();
+
+        // Seed initial data
+        factoryConnection.SeedData();
+    }
+    catch (Exception)
+    {
+        var logger = services.GetRequiredService<IAppLogger<Program>>();
+        logger.LogError("An error occurred during database initialization.");
+        throw; // Handle or rethrow as needed
+    }
+}
+
+#endregion
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
