@@ -110,8 +110,11 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        // Initialize database schema
+        // Recreate database
         var factoryConnection = services.GetRequiredService<IFactoryConnection>();
+        factoryConnection.RecreateDatabase();
+
+        // Initialize database schema
         factoryConnection.InitializeDatabase();
 
         // Seed initial data

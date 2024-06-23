@@ -25,6 +25,10 @@ public class FactoryConnection : IFactoryConnection
         }
     }
 
+    public void RecreateDatabase() {
+        ExecuteSqlScript("00-recreate-db.sql");
+    }
+
     public void InitializeDatabase()
     {
         ExecuteSqlScript("01-create-schema.sql");
