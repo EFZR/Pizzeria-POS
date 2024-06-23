@@ -14,8 +14,8 @@ public class OrderRepository : IOrderRepository
     }
 
     #region Queries
-    private readonly string INSERT = "INSERT INTO `Order` (Ord_EmpId, Ord_CustId, Ord_Date, Ord_BillNumber, Ord_Total) VALUES (@Ord_EmpId, @Ord_CustId, @Ord_Date, @Ord_BillNumber, @Ord_Total);";
-    private readonly string SELECT_BY_BILLNUMBER = "SELECT * FROM `Order` WHERE Ord_BillNumber = @Ord_BillNumber;";
+    private readonly string INSERT = "INSERT INTO [Order] (Ord_EmpId, Ord_CustId, Ord_Date, Ord_BillNumber, Ord_Total) VALUES (@Ord_EmpId, @Ord_CustId, @Ord_Date, @Ord_BillNumber, @Ord_Total);";
+    private readonly string SELECT_BY_BILLNUMBER = "SELECT * FROM [Order] WHERE Ord_BillNumber = @Ord_BillNumber;";
     #endregion
 
     public async Task<bool> Insert(Order order)

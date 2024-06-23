@@ -1,9 +1,9 @@
-using Microsoft.Data.Sqlite;
+using System.Data.SqlClient;
 
 namespace Transversal.Common;
 public interface IFactoryConnection
 {
-    SqliteConnection GetConnection { get; }
+    SqlConnection GetConnection { get; }
     void RecreateDatabase();
     void InitializeDatabase();
     void SeedData();

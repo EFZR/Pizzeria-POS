@@ -14,9 +14,9 @@ public class UserRepository : IUserRepository
     }
 
     #region Queries
-    private readonly string SELECT_USER_BY_EMAIL = "SELECT * FROM User WHERE User_Email = @User_Email;";
-    private readonly string SELECT_USER_BY_ID = "SELECT * FROM User WHERE User_Id = @User_Id;";
-    private readonly string CREATE_ACCOUNT = "INSERT INTO User (User_EmpId, User_Username, User_Email, User_Password, User_PasswordSalt, User_TokenSalt) VALUES (@User_EmpId, @User_Username, @User_Email, @User_Password, @User_PasswordSalt, @User_TokenSalt);";
+    private readonly string SELECT_USER_BY_EMAIL = "SELECT * FROM [User] WHERE User_Email = @User_Email;";
+    private readonly string SELECT_USER_BY_ID = "SELECT * FROM [User] WHERE User_Id = @User_Id;";
+    private readonly string CREATE_ACCOUNT = "INSERT INTO [User] (User_EmpId, User_Username, User_Email, User_Password, User_PasswordSalt, User_TokenSalt) VALUES (@User_EmpId, @User_Username, @User_Email, @User_Password, @User_PasswordSalt, @User_TokenSalt);";
     #endregion
 
     public async Task<bool> CreateAccount(User user)
