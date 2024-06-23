@@ -4,95 +4,95 @@ PRAGMA foreign_keys = ON;
 -- Create Products table
 CREATE TABLE
   IF NOT EXISTS `Products` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Name` TEXT,
-    `Description` TEXT,
-    `Price` DECIMAL,
-    `Availability` INTEGER -- Assuming Availability is represented as 0 (not available) or 1 (available)
+    `Prod_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Prod_Name` TEXT,
+    `Prod_Description` TEXT,
+    `Prod_Price` DECIMAL,
+    `Prod_Availability` INTEGER -- Assuming Availability is represented as 0 (not available) or 1 (available)
   );
 
 -- Create Country table
 CREATE TABLE
   IF NOT EXISTS `Country` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Name` TEXT
+    `Country_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Country_Name` TEXT
   );
 
 -- Create Province table
 CREATE TABLE
   IF NOT EXISTS `Province` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Country_ID` INTEGER,
-    `Name` TEXT,
-    FOREIGN KEY (`Country_ID`) REFERENCES `Country` (`ID`)
+    `Provi_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Provi_CountryId` INTEGER,
+    `Provi_Name` TEXT,
+    FOREIGN KEY (`Provi_CountryId`) REFERENCES `Country` (`Country_Id`)
   );
 
 -- Create Locality table
 CREATE TABLE
   IF NOT EXISTS `Locality` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Province_ID` INTEGER,
-    `Name` TEXT,
-    FOREIGN KEY (`Province_ID`) REFERENCES `Province` (`ID`)
+    `Local_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Local_ProviId` INTEGER,
+    `Local_Name` TEXT,
+    FOREIGN KEY (`Local_ProviId`) REFERENCES `Province` (`Provi_Id`)
   );
 
 -- Create Employee table
 CREATE TABLE
   IF NOT EXISTS `Employee` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Locality_ID` INTEGER,
-    `First_name` TEXT,
-    `Last_name` TEXT,
-    `Phone` TEXT,
-    FOREIGN KEY (`Locality_ID`) REFERENCES `Locality` (`ID`)
+    `Emp_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Emp_LocalId` INTEGER,
+    `Emp_FirstName` TEXT,
+    `Emp_LastName` TEXT,
+    `Emp_Phone` TEXT,
+    FOREIGN KEY (`Emp_LocalId`) REFERENCES `Locality` (`Local_Id`)
   );
 
 -- Create User table
 CREATE TABLE
   IF NOT EXISTS `User` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Employee_ID` INTEGER,
-    `Username` TEXT,
-    `Email` TEXT,
-    `Password` TEXT,
-    `Password_salt` TEXT,
-    `Token_salt` TEXT,
-    FOREIGN KEY (`Employee_ID`) REFERENCES `Employee` (`ID`)
+    `User_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `User_EmpId` INTEGER,
+    `User_Username` TEXT,
+    `User_Email` TEXT,
+    `User_Password` TEXT,
+    `User_PasswordSalt` TEXT,
+    `User_TokenSalt` TEXT,
+    FOREIGN KEY (`User_EmpId`) REFERENCES `Employee` (`Emp_Id`)
   );
 
 -- Create Customer table
 CREATE TABLE
   IF NOT EXISTS `Customer` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Locality_ID` INTEGER,
-    `First_name` TEXT,
-    `Last_name` TEXT,
-    `Phone` TEXT,
-    `Email` TEXT,
-    FOREIGN KEY (`Locality_ID`) REFERENCES `Locality` (`ID`)
+    `Cust_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Cust_LocalId` INTEGER,
+    `Cust_FirstName` TEXT,
+    `Cust_LastName` TEXT,
+    `Cust_Phone` TEXT,
+    `Cust_Email` TEXT,
+    FOREIGN KEY (`Cust_LocalId`) REFERENCES `Locality` (`Local_Id`)
   );
 
 -- Create Order table
 CREATE TABLE
   IF NOT EXISTS `Order` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Employee_ID` INTEGER,
-    `Customer_ID` INTEGER,
-    `Date` DATE,
-    `BillNumber` TEXT,
-    `Total` DECIMAL,
-    FOREIGN KEY (`Employee_ID`) REFERENCES `Employee` (`ID`),
-    FOREIGN KEY (`Customer_ID`) REFERENCES `Customer` (`ID`)
+    `Ord_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `Ord_EmpId` INTEGER,
+    `Ord_CustId` INTEGER,
+    `Ord_Date` DATE,
+    `Ord_BillNumber` TEXT,
+    `Ord_Total` DECIMAL,
+    FOREIGN KEY (`Ord_EmpId`) REFERENCES `Employee` (`Emp_Id`),
+    FOREIGN KEY (`Ord_CustId`) REFERENCES `Customer` (`Cust_Id`)
   );
 
 -- Create OrderDetail table
 CREATE TABLE
   IF NOT EXISTS `OrderDetail` (
-    `ID` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `Order_ID` INTEGER,
-    `Product_ID` INTEGER,
-    `Quantity` INTEGER,
-    `Price` DECIMAL,
-    FOREIGN KEY (`Order_ID`) REFERENCES `Order` (`ID`),
-    FOREIGN KEY (`Product_ID`) REFERENCES `Products` (`ID`)
+    `OD_Id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `OD_OrdId` INTEGER,
+    `OD_ProdId` INTEGER,
+    `OD_Quantity` INTEGER,
+    `OD_Price` DECIMAL,
+    FOREIGN KEY (`OD_OrdId`) REFERENCES `Order` (`Ord_Id`),
+    FOREIGN KEY (`OD_ProdId`) REFERENCES `Products` (`Prod_Id`)
   );
