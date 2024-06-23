@@ -15,6 +15,7 @@ public class UserRepository : IUserRepository
 
     #region Queries
     private readonly string SELECT_USER_BY_EMAIL = "SELECT * FROM User WHERE User_Email = @User_Email;";
+    private readonly string SELECT_USER_BY_ID = "SELECT * FROM User WHERE User_Id = @User_Id;";
     private readonly string CREATE_ACCOUNT = "INSERT INTO User (User_EmpId, User_Username, User_Email, User_Password, User_PasswordSalt, User_TokenSalt) VALUES (@User_EmpId, @User_Username, @User_Email, @User_Password, @User_PasswordSalt, @User_TokenSalt);";
     #endregion
 
@@ -38,6 +39,15 @@ public class UserRepository : IUserRepository
         var parameters = new DynamicParameters();
         parameters.Add("User_Email", email);
         var user = await connection.QuerySingleAsync<User>(SELECT_USER_BY_EMAIL, parameters);
+        return user;
+    }
+
+    public async Task<User> Get(string userId)
+    {
+        using var connection = _factoryConnection.GetConnection;
+        var parameters = new DynamicParameters();
+        parameters.Add("User_Id", userId);
+        var user = await connection.QuerySingleAsync<User>(SELECT_USER_BY_ID, parameters);
         return user;
     }
 }

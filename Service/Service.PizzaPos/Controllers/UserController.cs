@@ -92,10 +92,11 @@ public class UserController : ControllerBase
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-            new(ClaimTypes.Name, userDTO.Data.Id.ToString()),
-            }),
+            Subject = new ClaimsIdentity(
+                new Claim[]
+                {
+                    new(ClaimTypes.Name, userDTO.Data.Id.ToString()),
+                }),
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             Issuer = _appSettings.Issuer,

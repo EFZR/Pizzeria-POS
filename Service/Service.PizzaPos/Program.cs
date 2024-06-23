@@ -38,6 +38,8 @@ builder.Services.AddScoped<IEmployeeApplication, EmployeeApplication>();
 
 builder.Services.AddScoped<ILocalityApplication, LocalityApplication>();
 
+builder.Services.AddScoped<IOrderApplication, OrderApplication>();
+
 builder.Services.AddScoped<IProductApplication, ProductApplication>();
 
 builder.Services.AddScoped<IProvinceApplication, ProvinceApplication>();
@@ -52,6 +54,8 @@ builder.Services.AddScoped<IEmployeeDomain, EmployeeDomain>();
 
 builder.Services.AddScoped<ILocalityDomain, LocalityDomain>();
 
+builder.Services.AddScoped<IOrderDomain, OrderDomain>();
+
 builder.Services.AddScoped<IProductDomain, ProductDomain>();
 
 builder.Services.AddScoped<IProvinceDomain, ProvinceDomain>();
@@ -65,6 +69,10 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRespository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 builder.Services.AddScoped<ILocalityRepository, LocalityRepository>();
+
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 

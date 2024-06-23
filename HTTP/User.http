@@ -1,0 +1,10 @@
+@HOSTNAME=localhost
+@PORT=5234
+
+POST http://{{HOSTNAME}}:{{PORT}}/api/User/Authenticate
+Content-Type: application/json
+
+{
+  "email": "correo@correo.com",
+  "password": "Password"
+}

@@ -6,4 +6,5 @@ public interface IUserRepository
 {
     Task<bool> CreateAccount(User user);
     Task<User> Authenticate(string email);
+    Task<User> Get(string userId);
 }

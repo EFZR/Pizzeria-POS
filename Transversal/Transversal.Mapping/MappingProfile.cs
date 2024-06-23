@@ -42,7 +42,6 @@ public class MappingProfile : Profile
 
         // Mapping Order Entity.
         CreateMap<Order, OrderDTO>()
-            .ForMember(destination => destination.Id, source => source.MapFrom(src => src.Ord_Id))
             .ForMember(destination => destination.EmployeeId, source => source.MapFrom(src => src.Ord_EmpId))
             .ForMember(destination => destination.CustomerId, source => source.MapFrom(src => src.Ord_CustId))
             .ForMember(destination => destination.Date, source => source.MapFrom(src => src.Ord_Date))
@@ -52,12 +51,14 @@ public class MappingProfile : Profile
 
         // Mapping Order Detail Entity.
         CreateMap<OrderDetail, OrderDetailDTO>()
-            .ForMember(destination => destination.Id, source => source.MapFrom(src => src.OD_Id))
             .ForMember(destination => destination.OrderId, source => source.MapFrom(src => src.OD_OrdId))
             .ForMember(destination => destination.ProductId, source => source.MapFrom(src => src.OD_ProdId))
             .ForMember(destination => destination.Quantity, source => source.MapFrom(src => src.OD_Quantity))
             .ForMember(destination => destination.Price, source => source.MapFrom(src => src.OD_Price))
             .ReverseMap();
+
+        // Mapping Order With Details Entity.
+        CreateMap<OrderWithDetails, OrderWithDetailsDTO>().ReverseMap();
 
         // Mapping Product Entity.
         CreateMap<Product, ProductDTO>()
