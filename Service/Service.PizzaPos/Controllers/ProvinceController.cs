@@ -7,7 +7,7 @@ namespace Service.PizzaPos;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-// [Authorize]
+[Authorize]
 public class ProvinceController : ControllerBase
 {
     private readonly IProvinceApplication _provinceApplication;

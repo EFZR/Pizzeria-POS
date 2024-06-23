@@ -4,19 +4,6 @@ namespace Domain.Interface;
 
 public interface IUserDomain
 {
-    #region Synchronous Methods
-    bool Insert(User user);
-    bool Update(User user);
-    bool Delete(string UserId);
-    User Get(string UserId);
-    IEnumerable<User> GetAll();
-    #endregion
-
-    #region Asynchronous Methods
-    Task<bool> InsertAsync(User user);
-    Task<bool> UpdateAsync(User user);
-    Task<bool> DeleteAsync(string UserId);
-    Task<User> GetAsync(string UserId);
-    Task<IEnumerable<User>> GetAllAsync();
-    #endregion
+    Task<bool> CreateAccount(User user);
+    Task<User> Authenticate(string email, string password);
 }

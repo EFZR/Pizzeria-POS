@@ -12,50 +12,18 @@ public class UserDomain : IUserDomain
     {
         _userRepository = userRepository;
     }
+    public async Task<bool> CreateAccount(User user)
+    {
+        return await _userRepository.CreateAccount(user);
+    }
+    public async Task<User> Authenticate(string email, string password)
+    {
+        var user = await _userRepository.Authenticate(email) ?? throw new Exception("No user was found with that email.");
 
-    #region Synchronous Methods
-    public bool Insert(User user)
-    {
-        return _userRepository.Insert(user);
+        if (user.User_Password != password)
+        {
+            throw new Exception("Incorrect Password.");
+        }
+        return user;
     }
-    public IEnumerable<User> GetAll()
-    {
-        return _userRepository.GetAll();
-    }
-    public User Get(string UserId)
-    {
-        return _userRepository.Get(UserId);
-    }
-    public bool Update(User user)
-    {
-        return _userRepository.Update(user);
-    }
-    public bool Delete(string UserId)
-    {
-        return _userRepository.Delete(UserId);
-    }
-    #endregion
-
-    #region Asynchronous Methods
-    public async Task<bool> InsertAsync(User user)
-    {
-        return await _userRepository.InsertAsync(user);
-    }
-    public async Task<IEnumerable<User>> GetAllAsync()
-    {
-        return await _userRepository.GetAllAsync();
-    }
-    public async Task<User> GetAsync(string UserId)
-    {
-        return await _userRepository.GetAsync(UserId);
-    }
-    public async Task<bool> UpdateAsync(User user)
-    {
-        return await _userRepository.UpdateAsync(user);
-    }
-    public async Task<bool> DeleteAsync(string UserId)
-    {
-        return await _userRepository.DeleteAsync(UserId);
-    }
-    #endregion
 }

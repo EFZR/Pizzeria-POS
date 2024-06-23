@@ -20,14 +20,42 @@ public class UserApplication : IUserApplication
         _logger = logger;
     }
 
-    #region Synchronous Methods
-    public Response<bool> Insert(UserDTO userDTO)
+    public async Task<Response<UserDTO>> Authenticate(string email, string password)
+    {
+        var response = new Response<UserDTO>();
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            response.IsSuccess = false;
+            response.Message = "Username and Password Required.";
+            return response;
+        }
+        try
+        {
+            var user = await _userDomain.Authenticate(email, password);
+            response.Data = _mapper.Map<UserDTO>(user);
+            response.IsSuccess = true;
+            response.Message = "Authentication succesfully.";
+        }
+        catch (InvalidOperationException)
+        {
+            response.IsSuccess = true;
+            response.Message = "User not found.";
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.Message = ex.Message;
+        }
+        return response;
+    }
+
+    public async Task<Response<bool>> CreateAccount(UserDTO userDTO)
     {
         var response = new Response<bool>();
         try
         {
             var user = _mapper.Map<User>(userDTO);
-            response.Data = _userDomain.Insert(user);
+            response.Data = await _userDomain.CreateAccount(user);
             if (response.Data == true)
             {
                 response.IsSuccess = true;
@@ -43,213 +71,4 @@ public class UserApplication : IUserApplication
         }
         return response;
     }
-
-    public Response<UserDTO> Get(string UserId)
-    {
-        var response = new Response<UserDTO>();
-        try
-        {
-            var user = _userDomain.Get(UserId);
-            response.Data = _mapper.Map<UserDTO>(user);
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "User Query Succesfully.";
-                _logger.LogInformation("User Query Succesfully.");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.IsSuccess = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-
-    public Response<IEnumerable<UserDTO>> GetAll()
-    {
-        var response = new Response<IEnumerable<UserDTO>>();
-        try
-        {
-            var users = _userDomain.GetAll();
-            response.Data = _mapper.Map<IEnumerable<UserDTO>>(users);
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "User Query Succesfully.";
-                _logger.LogInformation("User Query Succesfully.");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.IsSuccess = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-
-    public Response<bool> Update(UserDTO userDTO)
-    {
-        var response = new Response<bool>();
-        try
-        {
-            var user = _mapper.Map<User>(userDTO);
-            response.Data = _userDomain.Update(user);
-            if (response.Data == true)
-            {
-                response.IsSuccess = true;
-                response.Message = "User Updated Succesfully";
-                _logger.LogInformation("User Updated Succesfully");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Data = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-
-    public Response<bool> Delete(string UserId)
-    {
-        var response = new Response<bool>();
-        try
-        {
-            response.Data = _userDomain.Delete(UserId);
-            if (response.Data == true)
-            {
-                response.IsSuccess = true;
-                response.Message = "User deleted Succesfully.";
-                _logger.LogInformation("User deleted Succesfully.");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Data = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-    #endregion
-
-    #region Asynchronous Methods
-    public async Task<Response<bool>> InsertAsync(UserDTO userDTO)
-    {
-        var response = new Response<bool>();
-        try
-        {
-            var user = _mapper.Map<User>(userDTO);
-            response.Data = await _userDomain.InsertAsync(user);
-            if (response.Data == true)
-            {
-                response.IsSuccess = true;
-                response.Message = "User Created Succesfully.";
-                _logger.LogInformation("User Created Succesfully.");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Data = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-
-    public async Task<Response<UserDTO>> GetAsync(string UserId)
-    {
-        var response = new Response<UserDTO>();
-        try
-        {
-            var user = await _userDomain.GetAsync(UserId);
-            response.Data = _mapper.Map<UserDTO>(user);
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "User Query Succesfully.";
-                _logger.LogInformation("User Query Succesfully.");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.IsSuccess = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-
-    public async Task<Response<IEnumerable<UserDTO>>> GetAllAsync()
-    {
-        var response = new Response<IEnumerable<UserDTO>>();
-        try
-        {
-            var users = await _userDomain.GetAllAsync();
-            response.Data = _mapper.Map<IEnumerable<UserDTO>>(users);
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "User Query Succesfully.";
-                _logger.LogInformation("User Query Succesfully.");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.IsSuccess = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-
-    public async Task<Response<bool>> UpdateAsync(UserDTO userDTO)
-    {
-        var response = new Response<bool>();
-        try
-        {
-            var user = _mapper.Map<User>(userDTO);
-            response.Data = await _userDomain.UpdateAsync(user);
-            if (response.Data == true)
-            {
-                response.IsSuccess = true;
-                response.Message = "User Updated Succesfully";
-                _logger.LogInformation("User Updated Succesfully");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Data = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-
-    public async Task<Response<bool>> DeleteAsync(string UserId)
-    {
-        var response = new Response<bool>();
-        try
-        {
-            response.Data = await _userDomain.DeleteAsync(UserId);
-            if (response.Data == true)
-            {
-                response.IsSuccess = true;
-                response.Message = "User deleted Succesfully.";
-                _logger.LogInformation("User deleted Succesfully.");
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Data = false;
-            response.Message = ex.Message;
-            _logger.LogError(ex.Message);
-        }
-        return response;
-    }
-    #endregion
-
 }
