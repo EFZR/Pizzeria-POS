@@ -20,7 +20,7 @@ public class EmployeeApplication : IEmployeeApplication
         _logger = logger;
     }
 
-    #region Synchronous
+    #region Synchronous Methods
     public Response<bool> Insert(EmployeeDTO employeeDTO)
     {
         var response = new Response<bool>();
@@ -136,7 +136,7 @@ public class EmployeeApplication : IEmployeeApplication
     }
     #endregion
 
-    #region Asynchronous
+    #region Asynchronous Methods
     public async Task<Response<bool>> InsertAsync(EmployeeDTO employeeDTO)
     {
         var response = new Response<bool>();

@@ -20,7 +20,7 @@ public class LocalityApplication : ILocalityApplication
         _logger = logger;
     }
 
-    #region Synchronous
+    #region Synchronous Methods
     public Response<bool> Insert(LocalityDTO localityDTO)
     {
         var response = new Response<bool>();
@@ -136,7 +136,7 @@ public class LocalityApplication : ILocalityApplication
     }
     #endregion
 
-    #region Asynchronous
+    #region Asynchronous Methods
     public async Task<Response<bool>> InsertAsync(LocalityDTO localityDTO)
     {
         var response = new Response<bool>();

@@ -20,7 +20,7 @@ public class ProvinceApplication : IProvinceApplication
         _logger = logger;
     }
 
-    #region Synchronous
+    #region Synchronous Methods
     public Response<bool> Insert(ProvinceDTO provinceDTO)
     {
         var response = new Response<bool>();
@@ -136,7 +136,7 @@ public class ProvinceApplication : IProvinceApplication
     }
     #endregion
 
-    #region Asynchronous
+    #region Asynchronous Methods
     public async Task<Response<bool>> InsertAsync(ProvinceDTO provinceDTO)
     {
         var response = new Response<bool>();

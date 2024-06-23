@@ -20,7 +20,7 @@ public class ProductApplication : IProductApplication
         _logger = logger;
     }
 
-    #region Synchronous
+    #region Synchronous Methods
     public Response<bool> Insert(ProductDTO productDTO)
     {
         var response = new Response<bool>();
@@ -136,7 +136,7 @@ public class ProductApplication : IProductApplication
     }
     #endregion
 
-    #region Asynchronous
+    #region Asynchronous Methods
     public async Task<Response<bool>> InsertAsync(ProductDTO productDTO)
     {
         var response = new Response<bool>();

@@ -20,7 +20,7 @@ public class CountryApplication : ICountryApplication
         _logger = logger;
     }
 
-    #region Synchronous
+    #region Synchronous Methods
     public Response<bool> Insert(CountryDTO countryDTO)
     {
         var response = new Response<bool>();
@@ -136,7 +136,7 @@ public class CountryApplication : ICountryApplication
     }
     #endregion
 
-    #region Asynchronous
+    #region Asynchronous Methods
     public async Task<Response<bool>> InsertAsync(CountryDTO countryDTO)
     {
         var response = new Response<bool>();
